@@ -11,21 +11,19 @@
 	$json = json_decode($insta_json[0]);
 	$entry_data = $json->entry_data;
 	$profilePage = $json->entry_data->ProfilePage{0}; 
-	$image = array();
-	$link = array();
+	$result = array();
 	foreach($profilePage->graphql->user->edge_owner_to_timeline_media->edges as $data){
-		$image[] = $data->node->display_url;
-		$link[] = $data->node->shortcode;
+		$result_temp = array(
+			'id' => $data->node->id,
+			'caption' => $data->node->edge_media_to_caption->edges[0]->node->text,
+			'display_url' => $data->node->display_url,
+			'display_ig' => 'https://www.instagram.com/p/'. $data->node->shortcode .'/',
+			'comment' => $data->node->edge_media_to_comment->count,
+			'like' => $data->node->edge_liked_by->count,
+			'owner' => $data->node->owner->username,
+			'datetime' => date('m/d/Y H:i:s',  $data->node->taken_at_timestamp)
+		);
+		array_push($result, $result_temp);
 	}
-	$json_data =  array(
-		"result" => TRUE,
-		"message" => array('head'=> 'Success', 'body'=> 'Sukses ambil data data'),
-		"form_error" => '',
-		"redirect" => '',
-		"data" => array(
-			"image" => $image,
-			"link" => $link
-		)
-	);
-	echo json_encode($json_data);
+	echo json_encode($result);
 ?>
