@@ -25,5 +25,19 @@
 		);
 		array_push($result, $result_temp);
 	}
-	echo json_encode($result);
+
+	if (count($result) > 0) {
+		$json_data =  array(
+			"status" => 200,
+			"message" => array('head'=> 'Success', 'body'=> 'Complete'),
+			"data" => $result
+		);
+		echo json_encode($json_data);
+	}else{
+		$json_data =  array(
+			"status" => 201,
+			"message" => array('head'=> 'Failed', 'body'=> 'Failed'),
+		);
+		echo json_encode($json_data);
+	}
 ?>
