@@ -1,9 +1,9 @@
 <?php
 /*
-	Author : Developer FollowersIndo
+	Author : Backend Engineer FollowersIndo
 	site: followersindo.com
 */
-	$username = 'thariqalfa';
+	$username = 'codenamezrav';
 	$url = "http://www.instagram.com/".$username."/"; 
 	$insta_source = file_get_contents($url);
 	$shards = explode('window._sharedData = ', $insta_source);
@@ -20,7 +20,6 @@
 			'display_ig' => 'https://www.instagram.com/p/'. $data->node->shortcode .'/',
 			'comment' => $data->node->edge_media_to_comment->count,
 			'like' => $data->node->edge_liked_by->count,
-			'owner' => $data->node->owner->username,
 			'datetime' => date('m/d/Y H:i:s',  $data->node->taken_at_timestamp)
 		);
 		array_push($result, $result_temp);
