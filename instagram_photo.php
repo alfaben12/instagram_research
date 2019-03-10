@@ -16,7 +16,7 @@
 		$result_temp = array(
 			'id' => $data->node->id,
 			'caption' => $data->node->edge_media_to_caption->edges[0]->node->text,
-			'display_url' => $data->node->display_url,
+			// 'display_url' => $data->node->display_url,
 			'display_ig' => 'https://www.instagram.com/p/'. $data->node->shortcode .'/',
 			'comment' => $data->node->edge_media_to_comment->count,
 			'like' => $data->node->edge_liked_by->count,
@@ -34,7 +34,7 @@
 		echo json_encode($json_data);
 	}else{
 		$json_data =  array(
-			"status" => 201,
+			"status" => 204,
 			"message" => array('head'=> 'Failed', 'body'=> 'Failed'),
 		);
 		echo json_encode($json_data);
